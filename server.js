@@ -1,5 +1,5 @@
 const express = require('express');
-const { notes } = require('./db/db.json');
+// const { notes } = require('./db/db.json');
 const fs = require('fs');
 const path = require('path');
 const PORT = process.env.PORT || 3001;
@@ -16,7 +16,7 @@ app.use('/api', apiRoutes);
 
 app.use('/', htmlRoutes);
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'));
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);

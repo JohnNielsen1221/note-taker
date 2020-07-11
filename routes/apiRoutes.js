@@ -1,7 +1,8 @@
-const router = require('express').Router();
+// const router = require('express').Router();
+const express = require('express');
+const app = express();
 const path = require('path');
 const fs = require('fs');
-let noteCount = 1;
 
 const readData = () => {
 
@@ -12,19 +13,16 @@ const readData = () => {
 const writeData = (noteData) => {
     fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(noteData), (err) => {
         if (err) return ({ err });
+        console.log(err);
     })
 }
 
-const newNoteId = () => noteId++;
-
-
-router.get("/api/notes", (req, res) => {
-
+app.get("/api/notes", (req, res) => {
     let noteData = readData();
     res.json(noteData)
 })
 
-router.post('/api/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
     let noteData = readData();
     let newNote = req.body;
     let lastNoteID = !noteData[0] ? 0 : noteData[noteData.length - 1].id;
@@ -36,7 +34,7 @@ router.post('/api/notes', (req, res) => {
     return res.json(noteData)
 })
 
-router.delete('/api/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
     let noteData = readData();
     const noteId = req.params.id;
     const newNoteData = noteData.filter((note) => note.id != noteId);
@@ -45,4 +43,4 @@ router.delete('/api/notes/:id', (req, res) => {
     res.send(newNoteData);
 })
 
-module.exports = router;
+module.exports = app;
