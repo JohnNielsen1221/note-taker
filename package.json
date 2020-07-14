@@ -2,7 +2,7 @@
   "name": "note-taker",
   "version": "1.0.0",
   "description": "",
-  "main": "porkypig",
+  "main": "server.js",
   "scripts": {
     "test": "jest"
   },
